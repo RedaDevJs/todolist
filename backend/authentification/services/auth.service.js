@@ -24,6 +24,26 @@ export class AuthService {
     }
     return null;
   };
+  register = async (item) => {
+    try {
+      const user = await this.userService.Add(item);
+      if (user) {
+        const u = this.getSinitizeUser(user);
+        const token = jwt.sign(
+          { ...this.getSinitizeUser(user) },
+          "privatekey",
+          {
+            expiresIn: "1d",
+          }
+        );
+        return { token };
+      }
+    } catch (err) {
+      const { code } = err;
+      if (code === 11000) return "duplicate email";
+    }
+  };
+
   getSinitizeUser = (user) => {
     const { _id, email, name } = user;
     return { _id, email, name };
