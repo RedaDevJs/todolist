@@ -1,8 +1,8 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import TodoList from "../components/Ui/TodoList";
-import SignInModal from "../components/Ui/SignIn";
-import SignUpModal from "../components/Ui/SignUp";
+import SignInModal from "../modals/SignIn";
+import SignUpModal from "../modals/SignUp";
 const Routers = () => {
     return (
         <Routes>

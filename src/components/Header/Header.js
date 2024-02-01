@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Disclosure } from '@headlessui/react';
 import { Link } from "react-router-dom";
-import SignInModal from "../Ui/SignIn";
-import SignUpModal from "../Ui/SignUp";
+import SignInModal from "../../modals/SignIn";
+import SignUpModal from "../../modals/SignUp";
 
 export default function Header() {
     const [signInModal, setSignInModal] = useState(false);
