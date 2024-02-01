@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import CreateTask from '../modals/CreateTask'
 import Card from './Card';
+import TaskPopup from "../modals/TaskPopup";
 
 const TodoList = () => {
     const [modal, setModal] = useState(false);
@@ -52,7 +52,7 @@ const TodoList = () => {
             <div className = " grid grid-cols-4 gap-4  p-4 mt-10 mb-1 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             {taskList && taskList.map((obj , index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask} updateListArray = {updateListArray}/> )}
             </div>
-            <CreateTask toggle = {toggle} modal = {modal} save = {saveTask}/>
+            <TaskPopup toggle = {toggle} modal = {modal} save = {saveTask}/>
         </>
     );
 };
