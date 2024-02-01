@@ -1,9 +1,9 @@
 import './App.css';
-import TodoList from './components/TodoList'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
+import Layout from "./components/Layout/Layout";
 
-function App() {
+/*function App() {
   return (
     <div className="App">
       <TodoList />
@@ -11,4 +11,8 @@ function App() {
   );
 }
 
+export default App;*/
+function App() {
+    return  <Layout />;
+}
 export default App;

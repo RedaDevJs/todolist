@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Card from './Card';
-import TaskPopup from "../modals/TaskPopup";
+import TaskPopup from "../../modals/TaskPopup";
 
 const TodoList = () => {
     const [modal, setModal] = useState(false);
@@ -45,7 +45,7 @@ const TodoList = () => {
 
     return (
         <>
-            <div className = "header text-center">
+            <div className = "bg-fuchsia-200 h-32 text-center">
                 <h3>Todo List</h3>
                 <button className = "btn btn-primary mt-2" onClick = {() => setModal(true)} >Create Task</button>
             </div>
