@@ -1,0 +1,316 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Pasta Carbonara",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "france",
+      "ingredients": [
+        "Spaghetti",
+        "Pancetta",
+        "Eggs ",
+        "Parmesan Cheese",
+        "Black Pepper"
+      ],
+      "steps": [
+        "Boil spaghetti until al dente.",
+        "Fry pancetta until crispy.",
+        "Mix eggs and Parmesan cheese in a bowl.",
+        "Combine cooked spaghetti with pancetta, then add egg mixture.",
+        "Mix well until the sauce thickens.",
+        "Add black pepper to taste and serve."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272258/Pasta_Carbonara_uhp042.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Chocolate Cake",
+      "category": "Dessert",
+      "author": "Chef Moha",
+      "origin": "morocco",
+      "ingredients": [
+        "Flour",
+        "Sugar",
+        "Cocoa Powder",
+        "Baking Powder",
+        "Eggs",
+        "Milk",
+        "Vanilla Extract"
+      ],
+      "steps": [
+        "Preheat oven to 350°F (175°C).",
+        "Mix flour, sugar, cocoa powder, and baking powder in a bowl.",
+        "Add eggs, milk, and vanilla extract to the dry mixture.",
+        "Mix until smooth.",
+        "Pour the batter into a greased cake pan.",
+        "Bake for 30-35 minutes.",
+        "Let it cool before serving."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272150/Chocolate_Cake_w68osl.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Caprese Salad",
+      "category": "Appetizer",
+      "author": "typicode",
+      "origin": "germany",
+      "ingredients": [
+        "Tomatoes",
+        "Fresh Mozzarella Cheese",
+        "Basil Leaves",
+        "Extra Virgin Olive Oil",
+        "Balsamic Vinegar",
+        "Salt",
+        "Pepper"
+      ],
+      "steps": [
+        "Slice tomatoes and fresh mozzarella into rounds.",
+        "Arrange them on a plate, alternating between tomato and mozzarella slices.",
+        "Tear basil leaves and sprinkle over the tomatoes and mozzarella.",
+        "Drizzle olive oil and balsamic vinegar on top.",
+        "Season with salt and pepper to taste."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272086/Caprese_Salad_tqt44i.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Chicken Stir-Fry",
+      "category": "Appetizer",
+      "author": "typicode",
+      "origin": "usa",
+      "ingredients": [
+        "Chicken Breast",
+        "Bell Peppers",
+        "Broccoli",
+        "Soy Sauce",
+        "Garlic",
+        "Ginger",
+        "Vegetable Oil",
+        "Rice"
+      ],
+      "steps": [
+        "Slice chicken breast into strips and marinate with soy sauce, garlic, and ginger.",
+        "Heat vegetable oil in a pan or wok over high heat.",
+        "Stir-fry chicken until cooked through, then set aside.",
+        "Stir-fry bell peppers and broccoli until tender-crisp.",
+        "Add the cooked chicken back to the pan and mix well.",
+        "Serve over steamed rice."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272008/Chicken_Stir-Fry_tgtcmg.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Pasta Carbonara",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "india",
+      "ingredients": [
+        "Spaghetti",
+        "Pancetta",
+        "Eggs ",
+        "Parmesan Cheese",
+        "Black Pepper"
+      ],
+      "steps": [
+        "Boil spaghetti until al dente.",
+        "Fry pancetta until crispy.",
+        "Mix eggs and Parmesan cheese in a bowl.",
+        "Combine cooked spaghetti with pancetta, then add egg mixture.",
+        "Mix well until the sauce thickens.",
+        "Add black pepper to taste and serve."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272258/Pasta_Carbonara_uhp042.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Pasta Carbonara",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "spain",
+      "ingredients": [
+        "Spaghetti",
+        "Pancetta",
+        "Eggs ",
+        "Parmesan Cheese",
+        "Black Pepper"
+      ],
+      "steps": [
+        "Boil spaghetti until al dente.",
+        "Fry pancetta until crispy.",
+        "Mix eggs and Parmesan cheese in a bowl.",
+        "Combine cooked spaghetti with pancetta, then add egg mixture.",
+        "Mix well until the sauce thickens.",
+        "Add black pepper to taste and serve."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272258/Pasta_Carbonara_uhp042.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Pasta Carbonara",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "morocco",
+      "ingredients": [
+        "Spaghetti",
+        "Pancetta",
+        "Eggs ",
+        "Parmesan Cheese",
+        "Black Pepper"
+      ],
+      "steps": [
+        "Boil spaghetti until al dente.",
+        "Fry pancetta until crispy.",
+        "Mix eggs and Parmesan cheese in a bowl.",
+        "Combine cooked spaghetti with pancetta, then add egg mixture.",
+        "Mix well until the sauce thickens.",
+        "Add black pepper to taste and serve."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272258/Pasta_Carbonara_uhp042.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Pasta Carbonara",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "saudi arabia",
+      "ingredients": [
+        "Spaghetti",
+        "Pancetta",
+        "Eggs ",
+        "Parmesan Cheese",
+        "Black Pepper"
+      ],
+      "steps": [
+        "Boil spaghetti until al dente.",
+        "Fry pancetta until crispy.",
+        "Mix eggs and Parmesan cheese in a bowl.",
+        "Combine cooked spaghetti with pancetta, then add egg mixture.",
+        "Mix well until the sauce thickens.",
+        "Add black pepper to taste and serve."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272258/Pasta_Carbonara_uhp042.jpg"
+    },
+    {
+      "id": 9,
+      "title": "Shrimp Scampi",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "france",
+      "ingredients": [
+        "Linguine Pasta",
+        "Shrimp",
+        "Garlic",
+        "White Wine",
+        "Lemon Juice",
+        "Parsley",
+        "Olive Oil",
+        "Red Pepper Flakes"
+      ],
+      "steps": [
+        "Cook linguine pasta according to package instructions.",
+        "Sauté shrimp and garlic in olive oil until shrimp are pink.",
+        "Deglaze with white wine, add lemon juice, parsley, and red pepper flakes.",
+        "Toss with cooked pasta and serve."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272008/Chicken_Stir-Fry_tgtcmg.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Greek Salad",
+      "category": "Appetizer",
+      "author": "typicode",
+      "origin": "italy",
+      "ingredients": [
+        "Cucumbers",
+        "Tomatoes",
+        "Kalamata Olives",
+        "Feta Cheese",
+        "Red Onion",
+        "Oregano",
+        "Olive Oil",
+        "Lemon Juice",
+        "Salt",
+        "Pepper"
+      ],
+      "steps": [
+        "Dice cucumbers, tomatoes, and red onion.",
+        "Combine with olives and feta cheese in a bowl.",
+        "Drizzle olive oil and lemon juice over the salad.",
+        "Sprinkle with oregano, salt, and pepper. Toss gently."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272008/Chicken_Stir-Fry_tgtcmg.jpg"
+    },
+    {
+      "id": 11,
+      "title": "Beef Tacos",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "china",
+      "ingredients": [
+        "Ground Beef",
+        "Taco Seasoning",
+        "Tortillas",
+        "Lettuce",
+        "Tomatoes",
+        "Cheese",
+        "Sour Cream",
+        "Salsa"
+      ],
+      "steps": [
+        "Brown ground beef in a skillet, drain excess fat.",
+        "Add taco seasoning and water, simmer until thickened.",
+        "Warm tortillas and assemble tacos with beef, lettuce, tomatoes, cheese, sour cream, and salsa."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272008/Chicken_Stir-Fry_tgtcmg.jpg"
+    },
+    {
+      "id": 12,
+      "title": "Ratatouille",
+      "category": "Main Course",
+      "author": "typicode",
+      "origin": "russia",
+      "ingredients": [
+        "Eggplant",
+        "Zucchini",
+        "Bell Peppers",
+        "Tomatoes",
+        "Onions",
+        "Garlic",
+        "Herbs de Provence",
+        "Olive Oil"
+      ],
+      "steps": [
+        "Slice eggplant, zucchini, bell peppers, and tomatoes.",
+        "Layer vegetables in a baking dish, interspersed with sliced onions and minced garlic.",
+        "Drizzle with olive oil, sprinkle with Herbs de Provence.",
+        "Bake until vegetables are tender."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272008/Chicken_Stir-Fry_tgtcmg.jpg"
+    },
+    {
+      "id": 13,
+      "title": "Spinach and Feta Stuffed Chicken",
+      "category": "Appetizer",
+      "author": "typicode",
+      "origin": "egypt",
+      "ingredients": [
+        "Chicken Breasts",
+        "Spinach",
+        "Feta Cheese",
+        "Garlic",
+        "Olive Oil",
+        "Salt",
+        "Pepper",
+        "Paprika"
+      ],
+      "steps": [
+        "Preheat oven to 375°F (190°C).",
+        "Make a pocket in each chicken breast.",
+        "Mix spinach, feta, garlic, salt, and pepper. Stuff into the chicken pockets.",
+        "Rub chicken with olive oil, sprinkle with paprika, and bake until cooked through."
+      ],
+      "image": "https://res.cloudinary.com/dwimur9lx/image/upload/v1704272008/Chicken_Stir-Fry_tgtcmg.jpg"
+    }
+  ]
+}
