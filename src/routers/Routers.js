@@ -1,15 +1,15 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import TodoList from "../components/Ui/TodoList";
-import SignInModal from "../modals/SignIn";
-import SignUpModal from "../modals/SignUp";
+import LoginForm from "../pages/Login";
+import RegistrationForm from "../pages/Register";
 const Routers = () => {
     return (
         <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<TodoList />} />
-            <Route path="/SignIn" element={<SignInModal />} />
-            <Route path="/SignUp" element={<SignUpModal />} />
+            <Route path="/login" element={<LoginForm  />} />
+            <Route path="/register" element={<RegistrationForm />} />
         </Routes>
     );
 };

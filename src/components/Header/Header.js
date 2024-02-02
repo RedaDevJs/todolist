@@ -1,25 +1,8 @@
 import React, { useState } from "react";
 import { Disclosure } from '@headlessui/react';
 import { Link } from "react-router-dom";
-import SignInModal from "../../modals/SignIn";
-import SignUpModal from "../../modals/SignUp";
 
 export default function Header() {
-    const [signInModal, setSignInModal] = useState(false);
-    const [signUpModal, setSignUpModal] = useState(false);
-
-    const openSignInModal = () => {
-        setSignInModal(true);
-    };
-
-    const openSignUpModal = () => {
-        setSignUpModal(true);
-    };
-
-    const closeModals = () => {
-        setSignInModal(false);
-        setSignUpModal(false);
-    };
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ');
@@ -74,25 +57,39 @@ export default function Header() {
                             </div>
                             <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-1 lg:justify-end">
                                 <Link
-                                    onClick={openSignInModal}
-                                    className="rounded-md text-sm font-medium text-yellow-400 hover:text-yellow-400  "
-                                    style={{color: '#FFFFFF', textDecoration: 'none'}}
+                                    to="/login"
+                                    className="d-flex align-items-center gap-1"
+                                    style={{
+
+                                        textDecoration: 'none',
+                                        transition: 'color 0.3s ease', // Add smooth color transition
+                                    }}
+                                    hoverStyle={{
+                                        color: '#FACC15',
+                                    }}
                                 >
-                                    Sign In
+                                    <i className="ri-login-circle-line"></i> Login
                                 </Link>
+
                                 <Link
-                                    onClick={openSignUpModal}
-                                    className="rounded-md text-sm font-medium text-yellow-400 hover:text-yellow-400  "
-                                    style={{color: '#FFFFFF', textDecoration: 'none',  }}
+                                    to="/register"
+                                    className="d-flex align-items-center gap-1"
+                                    style={{
+
+                                        textDecoration: 'none',
+                                        transition: 'color 0.3s ease', // Add smooth color transition
+                                    }}
+                                    hoverStyle={{
+                                        color: '#FACC15',
+                                    }}
                                 >
-                                    Sign Up
+                                    Register
                                 </Link>
+
                             </div>
 
                         </div>
                     </div>
-                    <SignInModal toggle={closeModals} modal={signInModal}/>
-                    <SignUpModal toggle={closeModals} modal={signUpModal}/>
                 </>
             )}
         </Disclosure>
