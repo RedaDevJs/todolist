@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import Card from './Card';
-import TaskPopup from "../../modals/TaskPopup";
+import Card from './Card.js';
+import TaskPopup from "../../modals/TaskPopup.js";
 
 const TodoList = () => {
     const [modal, setModal] = useState(false);

@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
-import Routers from "../../routers/Routers";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import Routers from "../../routers/Routers.js";
+import Header from "../Header/Header.js";
+import Footer from "../Footer/Footer.js";
 
 const Layout = () => {
     return (

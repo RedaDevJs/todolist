@@ -1,8 +1,8 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
-import TodoList from "../components/Ui/TodoList";
-import LoginForm from "../pages/Login";
-import RegistrationForm from "../pages/Register";
+import TodoList from "../components/Ui/TodoList.js";
+import LoginForm from "../pages/Login.js";
+import RegistrationForm from "../pages/Register.js";
 const Routers = () => {
     return (
         <Routes>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { formatToCustomDateTimeString } from '../Utilities/dateUtils';
-import TaskPopup from "../../modals/TaskPopup";
+import { formatToCustomDateTimeString } from '../Utilities/dateUtils.js';
+import TaskPopup from "../../modals/TaskPopup.js";
 
 const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
     const [modal, setModal] = useState(false);
