@@ -1,4 +1,4 @@
-import { UserService } from "../../users/services/user.service";
+import { UserService } from "../../users/services/user.service.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 export class AuthService {
@@ -10,7 +10,7 @@ export class AuthService {
     const { email, password } = item;
     const user = await this.userService.findByParams("email", email);
     if (user) {
-      if (bcrypt.compare(password, user.password)) {
+      if (await bcrypt.compare(password, user.password)) {
         const token = jwt.sign(
           { ...this.getSinitizeUser(user) },
           "privatekey",
