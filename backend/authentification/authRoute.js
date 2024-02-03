@@ -1,5 +1,5 @@
 import express from "express";
-import { AuthController } from "./controllers/aut.controller";
+import { AuthController } from "./controllers/aut.controller.js";
 
 export const route = express();
 route.use(express.json());
@@ -9,11 +9,13 @@ const authController = new AuthController();
 route.post("/", async (req, res) => {
   try {
     const { body } = req;
-    const result = await this.authController.login(body);
+    console.log({ body });
+    const result = await authController.login(body);
     if (result) res.status(200).json(result);
-    else res.status(404).json({ message: "error" });
+    else res.status(404).json({ message: "authentification invalide !" });
   } catch (error) {
-    res.status(500).json();
+    console.log(error);
+    res.status(500).json({ error });
   }
 });
 
@@ -24,7 +26,7 @@ route.post("/register", async (req, res) => {
     // console.log({ body });
     const result = await authController.register(body);
     if (result) res.status(200).json(result);
-    else res.status(404).json({ msg: "erreur" });
+    else res.status(404).json({ msg: "authentification invalide !" });
   } catch (err) {
     console.error(err);
     res.status(500).json();
