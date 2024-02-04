@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HttpService } from "../utils/http";
+import { HttpService } from "../utils/http.js";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
