@@ -3,7 +3,7 @@
 import { User } from '../model/user.js';
 
 export class UserService {
-  Add = (user) => User.create(user);
+  add = (user) => User.create(user);
   update = (id, item) => User.findByIdAndUpdate(id, item, { new: true });
   getOne = (id) => User.findById(id);
   delete = (id) => User.findByIdAndDelete(id);

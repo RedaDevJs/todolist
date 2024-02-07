@@ -10,13 +10,13 @@ export class AuthService {
     const { email, password } = item;
     const user = await this.userService.findByParams("email", email);
     if (user) {
-      if (bcrypt.compare(password, user.password)) {
+      if (await bcrypt.compare(password, user.password)) {
         const token = jwt.sign(
-          { ...this.getSinitizeUser(user.username) },
-          "privatekey",
-          {
-            expiresIn: "1d",
-          }
+            { ...this.getSinitizeUser(user) },
+            "privatekey",
+            {
+              expiresIn: "1d",
+            }
         );
         return { token };
       }
@@ -30,11 +30,11 @@ export class AuthService {
       if (user) {
         const u = this.getSinitizeUser(user);
         const token = jwt.sign(
-          { ...this.getSinitizeUser(user) },
-          "privatekey",
-          {
-            expiresIn: "1d",
-          }
+            { ...this.getSinitizeUser(user) },
+            "privatekey",
+            {
+              expiresIn: "1d",
+            }
         );
         return { token };
       }

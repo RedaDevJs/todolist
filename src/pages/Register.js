@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
-import NotificationModal from "../modals/NotificationModal.js";
+import NotificationModal from "../components/modals/NotificationModal.js";
 
 const RegistrationForm = () => {
     const [username, setUsername] = useState('');

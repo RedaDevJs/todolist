@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Card from './Card.js';
-import AddTaskForm from '../../modals/AddTaskForm.js';
+import AddTaskForm from '../modals/AddTaskForm.js';
 
 const TodoList = () => {
     const [modal, setModal] = useState(false);
@@ -14,6 +14,14 @@ const TodoList = () => {
             setTaskList(parsedTasks);
         }
     }, []);
+
+    const saveTask = (taskObj) => {
+        let updatedTasks = [...taskList, taskObj];
+        localStorage.setItem("taskList", JSON.stringify(updatedTasks));
+        setTaskList(updatedTasks);
+        setModal(false);
+    }
+
 
     const deleteTask = (index) => {
         let updatedTasks = [...taskList];
@@ -33,12 +41,7 @@ const TodoList = () => {
         setModal(!modal);
     }
 
-    const saveTask = (taskObj) => {
-        let updatedTasks = [...taskList, taskObj];
-        localStorage.setItem("taskList", JSON.stringify(updatedTasks));
-        setTaskList(updatedTasks);
-        setModal(false);
-    }
+
 
     return (
         <>

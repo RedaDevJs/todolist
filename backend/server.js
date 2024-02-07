@@ -1,40 +1,57 @@
 import express from 'express';
 import cors from 'cors';
 import connectDB from './commun/connexionDb.js';
-import dotenv from "dotenv";
-import { route as taskRouter } from "./tasks/taskRoute.js";
-import { route as userRouter } from "./users/userRoute.js";
-import { route as authRouter } from "./authentification/authRoute.js";
-import {auth} from "./commun/auth.js";
+import dotenv from 'dotenv';
+import { route as taskRouter } from './tasks/taskRoute.js';
+import { route as userRouter } from './users/userRoute.js';
+import { route as authRouter } from './authentification/authRoute.js';
+import { auth } from './commun/auth.js';
+
 dotenv.config();
 const { PORT_BACK } = process.env;
+
+// Fallback port if PORT_BACK is not defined
+const port = PORT_BACK || 3001;
 
 connectDB();
 
 const app = express();
 
-// Utilisation du middleware CORS avec des options spécifiques
+// Middleware
+app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3000',  // Mettez l'URL de votre application côté client
+    origin: 'http://localhost:3000', // Set the URL of your client-side application
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));
 
-app.use(express.json());
-
-app.get("/", (req, res) => {
-    res.status(200).json({ statut: "UP" });
+// Routes
+app.get('/', (req, res) => {
+    res.status(200).json({ status: 'UP' });
 });
 
-//taskRoute
-app.use("/api/tasks", auth, taskRouter)
+// Task route
+app.use('/api/tasks', auth, taskRouter);
 
-//userRoute
-app.use("/api/users", userRouter)
+// User route
+app.use('/api/users', userRouter);
 
-//authRoute
-app.use("/api/auth" ,authRouter)
+// Auth route
+app.use('/api/auth', authRouter);
 
-app.listen(PORT_BACK, () => {
-    console.log(`Server is running on port ${PORT_BACK}`);
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Internal Server Error' });
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+    console.log('Server shutting down...');
+    process.exit(0);
 });

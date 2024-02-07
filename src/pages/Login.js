@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NotificationModal from "../modals/NotificationModal.js";
+import NotificationModal from "../components/modals/NotificationModal.js";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
@@ -23,44 +23,44 @@ const LoginForm = () => {
   };
 
   const handleSignIn = async () => {
-    // Validate form fields
-    if (!email || !password) {
-      setLoginError('Please fill in all the required fields.');
-      return;
-    }
-
-    // Additional validation logic for email, password if needed
-    if (!validateEmail(email)) {
-      setEmailError('Invalid email format.');
-      return;
-    }
-
     try {
+      // Validate form fields
+      if (!email || !password) {
+        throw new Error('Please fill in all the required fields.');
+      }
+
+      // Additional validation logic for email, password if needed
+      if (!validateEmail(email)) {
+        throw new Error('Invalid email format.');
+      }
+
       setLoading(true);
+
       const response = await axios.post('http://localhost:6001/api/auth/login', {
         email,
         password,
       });
 
       if (response?.data) {
-        // Exemple de stockage du token dans le localStorage
-        localStorage.setItem('token', response.data['token']);
-
-        console.log('Login success:', response.data['token']);
+        // Example of storing the token in localStorage
+        localStorage.setItem('token', response.data.token);
+        console.log('Login success:', response.data.token);
         setLoginSuccess(true);
         toggle(); // Open the modal
         // Additional actions or state updates on success
       } else {
         console.error('Invalid response:', response);
-        setLoginError('Login failed. Please try again.');
+        throw new Error('Login failed. Please try again.');
       }
     } catch (error) {
       console.error('API error:', error?.response?.data);
-      setLoginError('An error occurred. Please try again later.');
+      const errorMessage = error.message || 'An error occurred. Please try again later.';
+      setLoginError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
+
 
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { formatToCustomDateTimeString } from '../Utilities/dateUtils.js';
-import AddTaskForm from "../../modals/AddTaskForm.js";
+import AddTaskForm from "../modals/AddTaskForm.js";
 
 const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
     const [modal, setModal] = useState(false);

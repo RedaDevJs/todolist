@@ -6,7 +6,7 @@ export class UserController {
     this.userService = new UserService();
   }
 
-  Add = (user) => this.userService.Add(user);
+  Add = (user) => this.userService.add(user);
   update = (id, item) => this.userService.update(id, item);
   getOne = (id) => this.userService.getOne(id);
   delete = (id) => this.userService.delete(id);

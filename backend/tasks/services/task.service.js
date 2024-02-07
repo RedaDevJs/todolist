@@ -5,7 +5,7 @@ import { Task } from "../model/task.js";
 export class TaskService {
 
   //Add = (task) => Task.create(task);
-  Add = async (task) => {
+  add = async (task) => {
     try {
       console.log("TaskService.Add called with task:", task);
       const newTask = new Task({ ...task });
