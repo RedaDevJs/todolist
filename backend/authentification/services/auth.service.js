@@ -10,9 +10,9 @@ export class AuthService {
     const { email, password } = item;
     const user = await this.userService.findByParams("email", email);
     if (user) {
-      if (await bcrypt.compare(password, user.password)) {
+      if (bcrypt.compare(password, user.password)) {
         const token = jwt.sign(
-          { ...this.getSinitizeUser(user) },
+          { ...this.getSinitizeUser(user.username) },
           "privatekey",
           {
             expiresIn: "1d",

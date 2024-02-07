@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-const TaskPopup = ({ modal, toggle, save, update, taskObj }) => {
-    console.log("TaskPopup")
+const AddTaskForm = ({ modal, toggle, save, update, taskObj }) => {
+    console.log("AddTaskForm")
 
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
@@ -153,4 +153,4 @@ const TaskPopup = ({ modal, toggle, save, update, taskObj }) => {
     );
 };
 
-export default TaskPopup;
+export default AddTaskForm;

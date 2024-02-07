@@ -1,22 +1,20 @@
+// task.js
+
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
 const taskSchema = new Schema({
-  id: mongoose.ObjectId,
-  Titre: {
+  id: mongoose.ObjectId, // Ajoutez cette ligne
+  titre: {
     type: String,
     required: true,
   },
-  Priorite: String,
-  Statut: String,
-  Description: String,
+  priorite: String,
+  statut: String,
+  description: String,
   deadline: Date,
-  Commentaires: [String],
-  //   userId: {
-  //     required: true,
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "User",
-  //   },
+  commentaires: [String], // Tableau pour stocker les commentaires
 });
-export const Task = mongoose.model("Task", taskSchema,"Tasks");
+
+export const Task = mongoose.model("Task", taskSchema, "tasks");

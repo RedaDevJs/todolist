@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { formatToCustomDateTimeString } from '../Utilities/dateUtils.js';
-import TaskPopup from "../../modals/TaskPopup.js";
+import AddTaskForm from "../../modals/AddTaskForm.js";
 
 const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
     const [modal, setModal] = useState(false);
@@ -75,7 +75,7 @@ const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
                     ></i>
                 </div>
             </div>
-            <TaskPopup modal={modal} toggle={toggle} update={updateTask} taskObj={taskObj}/>
+            <AddTaskForm modal={modal} toggle={toggle} update={updateTask} taskObj={taskObj}/>
         </div>
     );
 };

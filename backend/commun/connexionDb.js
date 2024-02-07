@@ -1,26 +1,19 @@
-import dotenv from "dotenv";
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 dotenv.config();
-const { url } = process.env;
 
-export class ConnexionDB {
-  constructor() {
-    this.connexionDb = null;
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.DATABASE_URL, {
+      dbName: 'todolist',
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to the database');
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
   }
+};
 
-  generateConnexion = async () => {
-    try {
-      this.connexionDb = await mongoose.connect(url);
-      console.log("DataBase Connected");
-    } catch (error) {
-      console.error("error");
-      this.connexionDb = null;
-    }
-  };
-
-  getConnexion() {
-    if (!this.connexionDb) this.generateConnexion();
-    return this.connexionDb;
-  }
-}
+export default connectDB;

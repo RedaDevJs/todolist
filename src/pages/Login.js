@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { HttpService } from "../utils/http";
+import NotificationModal from "../modals/NotificationModal.js";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -7,41 +9,57 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleSignIn = () => {
-    // Validate email
-    if (!email.trim() || !validateEmail(email)) {
-      setEmailError("Enter a valid email address.");
+  const handleSignIn = async () => {
+    // Validate form fields
+    if (!email || !password) {
+      setLoginError('Please fill in all the required fields.');
       return;
-    } else {
-      setEmailError("");
     }
 
-    // Validate password
-    if (!password.trim()) {
-      setPasswordError("Password is required.");
+    // Additional validation logic for email, password if needed
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email format.');
       return;
-    } else {
-      setPasswordError("");
     }
 
-    // Your existing sign-in logic here...
-    console.log("Signing in:", email, password);
-    const service = new HttpService();
-    service
-      .post("auth", { email, password })
-      .then((result) => {
-        console.log("result");
-        //redirect to other page
-      })
-      .catch((error) => {
-        // service notification
+    try {
+      setLoading(true);
+      const response = await axios.post('http://localhost:6001/api/auth/login', {
+        email,
+        password,
       });
+
+      if (response?.data) {
+        // Exemple de stockage du token dans le localStorage
+        localStorage.setItem('token', response.data['token']);
+
+        console.log('Login success:', response.data['token']);
+        setLoginSuccess(true);
+        toggle(); // Open the modal
+        // Additional actions or state updates on success
+      } else {
+        console.error('Invalid response:', response);
+        setLoginError('Login failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('API error:', error?.response?.data);
+      setLoginError('An error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleEmailChange = (e) => {
@@ -81,67 +99,80 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      {showLoginForm && (
-        <div className="h-screen">
-          <div className="auth-form w-96 mx-auto mt-8 ">
-            <div className="h-10 bg-green-950 text-yellow-300 ">
-              <label className="m-2 text-lg">Login-Form</label>
+      <>
+        {showLoginForm && (
+            <div className="h-screen">
+              <div className="auth-form w-96 mx-auto mt-8 ">
+                <div className="h-10 bg-green-950 text-yellow-300 ">
+                  <label className="m-2 text-lg">Login-Form</label>
+                </div>
+                <div className=" p-8 border border-gray-300 rounded shadow-md">
+                  <div className="flex flex-col mb-4">
+                    <label className="mb-2">Email:</label>
+                    <input
+                        type="text"
+                        value={email}
+                        onChange={handleEmailChange}
+                        className="border p-2 rounded"
+
+                    />
+                    {emailError && <div className="text-red-500">{emailError}</div>}
+                  </div>
+
+                  <div className="flex flex-col mb-4">
+                    <label className="mb-2">Password:</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        className="border p-2 rounded"
+                    />
+                    {passwordError && (
+                        <div className="text-red-500">{passwordError}</div>
+                    )}
+                  </div>
+
+                  <div className="flex justify-between">
+                    <button
+                        onClick={handleSignIn}
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    >
+                      Login
+                    </button>
+                    <button
+                        onClick={handleCancel}
+                        className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div className="mt-4 text-center">
+                    <a
+                        href="/"
+                        onClick={handleForgotPassword}
+                        className="text-blue-500 hover:underline"
+                    >
+                      Forgot Password?
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className=" p-8 border border-gray-300 rounded shadow-md">
-              <div className="flex flex-col mb-4">
-                <label className="mb-2">Email:</label>
-                <input
-                  type="text"
-                  value={email}
-                  onChange={handleEmailChange}
-                  className="border p-2 rounded"
-                />
-                {emailError && <div className="text-red-500">{emailError}</div>}
-              </div>
+        )}
 
-              <div className="flex flex-col mb-4">
-                <label className="mb-2">Password:</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  className="border p-2 rounded"
-                />
-                {passwordError && (
-                  <div className="text-red-500">{passwordError}</div>
-                )}
-              </div>
-
-              <div className="flex justify-between">
-                <button
-                  onClick={handleSignIn}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={handleCancel}
-                  className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-                >
-                  Cancel
-                </button>
-              </div>
-
-              <div className="mt-4 text-center">
-                <a
-                  href="#"
-                  onClick={handleForgotPassword}
-                  className="text-blue-500 hover:underline"
-                >
-                  Forgot Password?
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+        {loginSuccess && (
+            <NotificationModal
+                isOpen={modal}
+                toggle={toggle}
+                handleSignIn={() => {
+                  // handle logic for redirecting to other page after successful login
+                  console.log("Redirecting to other page...");
+                  navigate('/home'); // Example: Redirect to the home page
+                }}
+            />
+        )}
+      </>
   );
 };
 

@@ -6,64 +6,84 @@ route.use(express.json());
 
 const taskController = new TaskController();
 
-//addTask
+// Add Task
 route.post("/", async (req, res) => {
   try {
     const { body } = req;
     console.log({ body });
     const result = await taskController.Add(body);
-    console.log(body);
-    if (result) res.status(201).json(result);
-    res.status(404).json();
+    if (result) {
+      res.status(201).json(result);
+    } else {
+      res.status(404).json({ message: "Ressource non trouvée" });
+    }
   } catch (error) {
-    console.error(res.status(500).json());
+    console.error(error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 });
 
-//updateTask
+// Update Task
 route.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
     const result = await taskController.update(id, body);
-    if (result) res.status(200).json(result);
-    else res.status(404).json(result);
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Ressource non trouvée" });
+    }
   } catch (error) {
-    console.error(res.status(500).json());
-  }
-});
-//delete
-route.delete("/:id ", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await taskController.delete(id);
-    if (result) res.status(200).json(result);
-    else res.status(404).json(result);
-  } catch (error) {
-    console.error(res.status(500).json());
+    console.error(error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 });
 
-//getOne
+// Delete Task
+route.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await taskController.delete(id);
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Ressource non trouvée" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
+  }
+});
+
+// Get One Task
 route.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const result = await taskController.getOne(id);
-    if (result) res.status(200).json(result);
-    else res.status(404).json(result);
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Ressource non trouvée" });
+    }
   } catch (error) {
-    console.error(res.status(500).json());
+    console.error(error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 });
 
-//getAll
+// Get All Tasks
 route.get("/", async (req, res) => {
   try {
     const { page, limit, filter } = req.query;
     const result = await taskController.getAll(page, limit, filter);
-    if (result) res.status(200).json(result);
-    else res.status(404).json(result);
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Ressources non trouvées" });
+    }
   } catch (error) {
-    console.error(res.status(500).json());
+    console.error(error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 });

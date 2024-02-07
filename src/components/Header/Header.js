@@ -16,8 +16,8 @@ export default function Header() {
 
     const navigation = [
         { name: 'Dashboard', href: '/home' },
-        { name: 'Tasks', href: '/recipes' },
-        { name: 'Team', href: '/recipedetail' },
+        { name: 'Tasks', href: '/tasks' },
+        { name: 'Team', href: '/team' },
         { name: 'About', href: '/about' },
     ];
 
@@ -64,13 +64,9 @@ export default function Header() {
                                         textDecoration: 'none',
                                         transition: 'color 0.3s ease', // Add smooth color transition
                                     }}
-                                    hoverStyle={{
-                                        color: '#FACC15',
-                                    }}
                                 >
                                     <i className="ri-login-circle-line"></i> Login
                                 </Link>
-
                                 <Link
                                     to="/register"
                                     className="d-flex align-items-center gap-1"
@@ -79,15 +75,35 @@ export default function Header() {
                                         textDecoration: 'none',
                                         transition: 'color 0.3s ease', // Add smooth color transition
                                     }}
-                                    hoverStyle={{
-                                        color: '#FACC15',
-                                    }}
                                 >
                                     Register
                                 </Link>
+                                {/*<div>
+                                    {
+                                        !user ?
 
+                                            <Col className="header__top__right d-flex align-items-center ">
+                                                <Col className="d-flex align-items-center gap-3">
+                                                    <Link to="/login" className="d-flex align-items-center gap-1">
+                                                        <i className="ri-login-circle-line"></i> Se connecter
+                                                    </Link>
+                                                    <Link to="/register" className="d-flex align-items-center gap-1">
+
+                                                    </Link>
+                                                </Col>
+                                            </Col>
+                                            :
+                                            <Col className="header__top__right d-flex align-items-center ">
+                                                <Col className="d-flex align-items-center gap-3">
+                                                    <span>{user?.email}</span>
+                                                    <span>({user?.role})</span>
+                                                    <i className="ri-logout-box-r-line btn btn-danger"
+                                                       onClick={handlerLogout}></i>
+                                                </Col>
+                                            </Col>
+                                    }
+                                </div>*/}
                             </div>
-
                         </div>
                     </div>
                 </>

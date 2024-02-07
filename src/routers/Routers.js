@@ -8,6 +8,7 @@ const Routers = () => {
         <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<TodoList />} />
+
             <Route path="/login" element={<LoginForm  />} />
             <Route path="/register" element={<RegistrationForm />} />
         </Routes>
