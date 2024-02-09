@@ -221,9 +221,10 @@ const RegistrationForm = () => {
                 <NotificationModal
                     isOpen={modal}
                     toggle={toggle}
-                    handleSignIn={handleSignIn}
-                    onClosed={handleModalClosed}
-                    forceModal={forceModal}
+                    handleAction={handleSignIn}
+                    label="Registration"
+                    content="you are successfully registred"
+                    buttonText="Login"
                 />
             )}
         </>

@@ -1,4 +1,6 @@
-import React, {Fragment} from "react";
+//Layout.js
+
+import React, {Fragment, useState} from "react";
 import Routers from "../../routers/Routers.js";
 import Header from "../Header/Header.js";
 import Footer from "../Footer/Footer.js";
@@ -6,7 +8,7 @@ import Footer from "../Footer/Footer.js";
 const Layout = () => {
     return (
         <Fragment>
-            <Header />
+            <Header/>
             <div>
                 <Routers />
             </div>

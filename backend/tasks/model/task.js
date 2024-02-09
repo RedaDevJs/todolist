@@ -13,8 +13,14 @@ const taskSchema = new Schema({
   priorite: String,
   statut: String,
   description: String,
-  deadline: Date,
+  deadline: String,
   commentaires: [String], // Tableau pour stocker les commentaires
+  userId: String,
+  /*userId: {
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },*/
 });
 
 export const Task = mongoose.model("Task", taskSchema, "tasks");

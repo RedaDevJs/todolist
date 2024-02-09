@@ -1,3 +1,5 @@
+//connectDB.js
+
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
@@ -6,9 +8,7 @@ dotenv.config();
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DATABASE_URL, {
-      dbName: 'todolist',
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      dbName: 'todolist'
     });
     console.log('Connected to the database');
   } catch (error) {

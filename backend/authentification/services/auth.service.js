@@ -1,3 +1,5 @@
+//AuthService.js
+
 import { UserService } from "../../users/services/user.service.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -16,7 +18,9 @@ export class AuthService {
             "privatekey",
             {
               expiresIn: "1d",
+
             }
+
         );
         return { token };
       }

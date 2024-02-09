@@ -1,3 +1,5 @@
+//Login.js
+
 import React, { useState } from "react";
 import NotificationModal from "../components/modals/NotificationModal.js";
 import axios from 'axios';
@@ -9,11 +11,11 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(true);
+
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [modal, setModal] = useState(false);
-
   const toggle = () => setModal(!modal);
   const navigate = useNavigate();
 
@@ -46,8 +48,10 @@ const LoginForm = () => {
         localStorage.setItem('token', response.data.token);
         console.log('Login success:', response.data.token);
         setLoginSuccess(true);
+        setShowLoginForm(false);
+        setLoading(false);
         toggle(); // Open the modal
-        // Additional actions or state updates on success
+        navigate('/tasks');
       } else {
         console.error('Invalid response:', response);
         throw new Error('Login failed. Please try again.');
@@ -60,7 +64,6 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
-
 
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
@@ -114,7 +117,6 @@ const LoginForm = () => {
                         value={email}
                         onChange={handleEmailChange}
                         className="border p-2 rounded"
-
                     />
                     {emailError && <div className="text-red-500">{emailError}</div>}
                   </div>
@@ -135,13 +137,15 @@ const LoginForm = () => {
                   <div className="flex justify-between">
                     <button
                         onClick={handleSignIn}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${loading && 'opacity-50 cursor-not-allowed'}`}
+                        disabled={loading}
                     >
-                      Login
+                      {loading ? 'Logging In...' : 'Login'}
                     </button>
                     <button
                         onClick={handleCancel}
                         className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+                        disabled={loading}
                     >
                       Cancel
                     </button>
@@ -165,11 +169,10 @@ const LoginForm = () => {
             <NotificationModal
                 isOpen={modal}
                 toggle={toggle}
-                handleSignIn={() => {
-                  // handle logic for redirecting to other page after successful login
-                  console.log("Redirecting to other page...");
-                  navigate('/home'); // Example: Redirect to the home page
-                }}
+                handleAction={handleSignIn}
+                label="Login"
+                content="Enjoy"
+                buttonText="Ok"
             />
         )}
       </>
