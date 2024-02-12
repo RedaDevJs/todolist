@@ -19,6 +19,10 @@ const userSchema = new Schema({
     required: true,
     type: String,
   },
+  role:{
+    required: true,
+    type: String,
+  },
  salt: {
     required: true,
     type: String,

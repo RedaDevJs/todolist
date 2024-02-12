@@ -1,19 +1,23 @@
-// AddTaskForm.js
+// ManageTaskForm.js
 
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
+import NotificationModal from "./NotificationModal.js";
 
-const AddTaskForm = ({ modal, toggle, taskObj }) => {
+const ManageTaskForm = ({ modal, toggle, taskObj }) => {
     const [titre, setTitre] = useState('');
     const [priorite, setPriorite] = useState('');
     const [statut, setStatut] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');
     const [commentaires, setCommentaires] = useState('');
-    const [userId, setUserId] = useState('1');
+    const [userId, setUserId] = useState(1);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [ManageTaskSuccess, setManageTaskSuccess] = useState(false);
+    const [showManageTaskForm,SetshowManageTaskForm]= useState(true);
+
     const handleAddTask = async () => {
         setLoading(true);
         const data ={
@@ -68,6 +72,62 @@ const AddTaskForm = ({ modal, toggle, taskObj }) => {
             // setAddError('Error adding task. Please try again.');
         }
     };
+   /* const handleAddTask = async () => {
+        try {
+            setLoading(true);
+
+            // Validate form fields...
+            if (titre === "") {
+                console.error('Please fill in all the required fields.');
+                return;
+            }
+
+            // Check if the task with the same ID already exists
+            const existingTask = await axios.get(`http://localhost:6001/api/tasks/${encodeURIComponent(taskObj._id)}`);
+
+            if (existingTask.data) {
+                console.error('Task with the same ID already exists.');
+                return;
+            }
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('Token is null. Please authenticate first.');
+                return;
+            }
+
+            // Declare the data object
+            const data = {
+                titre: titre,
+                priorite: priorite,
+                statut: statut,
+                description: description,
+                deadline: deadline,
+                commentaires: commentaires,
+                userId: userId
+            };
+
+            const response = await axios.post(
+                'http://localhost:6001/api/tasks',
+                data,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            console.log('Task added successfully:', response.data);
+            setLoading(false);
+            setManageTaskSuccess(true);
+            // Optionally, you can update the UI or fetch the updated task list
+        } catch (error) {
+            console.error('Error adding task:', error);
+            console.error('Detailed response:', error.response);
+            setLoading(false);
+            setError('Error adding task. Please try again.');
+        }
+    };*/
 
     const getStatusColor = (status) => {
         switch (status) {
@@ -83,6 +143,8 @@ const AddTaskForm = ({ modal, toggle, taskObj }) => {
     };
 
     return (
+        <>
+            {showManageTaskForm && (
         <Modal isOpen={modal} toggle={toggle}>
             <ModalHeader toggle={toggle} style={{ backgroundColor: getStatusColor(statut), color: 'white' }}>
                 {taskObj ? 'Update Task' : 'Create Task'}
@@ -151,16 +213,6 @@ const AddTaskForm = ({ modal, toggle, taskObj }) => {
                         name="deadline"
                     />
                 </div>
-                <div>
-                    <label>UserId</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
-                        name="deadline"
-                    />
-                </div>
             </ModalBody>
             <ModalFooter>
                 <Button color="primary" onClick={handleAddTask}>
@@ -172,7 +224,21 @@ const AddTaskForm = ({ modal, toggle, taskObj }) => {
             </ModalFooter>
             {error && <div className="error-message">{error}</div>}
         </Modal>
-    );
+        )}
+
+            {ManageTaskSuccess && (
+        <NotificationModal
+            isOpen={modal}
+            toggle={toggle}
+            //handleAction={handleSignIn}
+            label="Registration"
+            content="Task added successfully"
+            buttonText="Ok"
+        />
+    )}
+</>
+);
 };
 
-export default AddTaskForm
+
+export default ManageTaskForm

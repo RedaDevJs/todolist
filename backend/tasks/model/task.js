@@ -13,7 +13,7 @@ const taskSchema = new Schema({
   priorite: String,
   statut: String,
   description: String,
-  deadline: String,
+  deadline: Date,
   commentaires: [String], // Tableau pour stocker les commentaires
   userId: String,
   /*userId: {

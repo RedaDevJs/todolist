@@ -1,9 +1,7 @@
-import React from 'react';
-import {Container} from "reactstrap";
+import React from "react";
 import TodoList from "../components/Ui/TodoList.js";
 
 const Tasks = () => {
-    return (<TodoList/>
-    );
+  return <TodoList />;
 };
 export default Tasks;

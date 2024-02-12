@@ -1,6 +1,5 @@
 //authRoute.js
 
-
 import express from "express";
 import { AuthController } from "./controllers/auth.controller.js";
 
@@ -14,11 +13,14 @@ route.post("/login", async (req, res) => {
     const { body } = req;
     console.log({ body });
     const result = await authController.login(body);
-    if (result) res.status(200).json(result);
-    else res.status(404).json({ message: "authentification invalide !" });
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Authentication failed!" });
+    }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
+    console.error("Error in /login route:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

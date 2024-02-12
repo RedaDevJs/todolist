@@ -1,0 +1,48 @@
+backend
+node_modules
+public
+src
+|-- assets
+|   |-- all-images
+|   |   |-- slider-img
+|   |-- data
+|-- components
+|   |-- Footer
+|   |   |-- Footer.js
+|   |-- Header
+|   |   |-- Header.js
+|   |-- Layout
+|   |   |-- Layout.js                                                    |   |-- Modals
+|   |   |-- ManageTaskForm.js
+|   |   |-- NotificationModal.js 
+|   |-- UI
+|   |   |-- Card.js
+|   |   |-- TodoList.js    
+|   |-- Utilities
+|   |   |-- DateUtils.js
+|   |   |-- Http.js        
+|-- features
+|   |-- tasks
+|   |   |-- tasks.js
+|   |   |   |-- tasksSlice.js
+|   |-- users
+|   |   |-- users.js
+|   |   |   |-- usersSlice.js 
+|-- routers
+|   |-- Routers.js                                                    
+|-- pages
+|   |-- About.js
+|   |-- Home.js
+|   |-- Login.js
+|   |-- Register.js
+|   |-- Tasks.js  
+|-- routers
+|   |-- Routers.js
+|-- app.js
+|-- index.js
+|-- store.js
+env
+tailwindcss.js
+package.json
+package-lock.json
+README.md
