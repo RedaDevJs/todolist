@@ -11,13 +11,12 @@ const LOGIN_ICON = <i className="ri-login-circle-line"></i>;
 export default function Header() {
   const [current, setCurrent] = useState(HOME_ROUTE);
   const location = useLocation();
-  const isAuthenticated = useSelector((state) => state.users?.isAuthenticated);
+  const {isAuthenticated,currentUser} = useSelector((state) => state.reducer.users);
   // Use optional chaining to handle the case where state.users is undefined
   //const currentUser = useSelector()?.username;
   const dispatch = useDispatch();
 
-  console.log(isAuthenticated);
-
+console.log(isAuthenticated)
   const handleNavigationClick = (href) => {
     setCurrent(href);
   };
@@ -76,7 +75,7 @@ export default function Header() {
               <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-1 lg:justify-end">
                 {isAuthenticated ? (
                   <>
-                    <span className="text-white">{currentUser}</span>
+                    <span className="text-white">{currentUser.username}</span>
                     <button onClick={handleLogout} className="text-white">
                       Déconnexion
                     </button>
