@@ -1,4 +1,4 @@
-//userActions
+//userActions.js
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -36,6 +36,7 @@ export const loginUserAsync = createAsyncThunk(
 
       if (response?.data) {
         console.log(response.data);
+        localStorage.setItem("token", response.data.token);
         return response.data.user; // Return the user data directly
       } else {
         console.error("Invalid response:", response);

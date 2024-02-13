@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
 
 const NotificationModal = ({
@@ -9,6 +9,16 @@ const NotificationModal = ({
   buttonText,
   content,
 }) => {
+  useEffect(() => {
+    // Automatically close the modal after 1000 milliseconds (1 second)
+    const timeoutId = setTimeout(() => {
+      toggle();
+    }, 1000);
+
+    // Clean up the timeout when the component unmounts or when the modal is closed manually
+    return () => clearTimeout(timeoutId);
+  }, [isOpen, toggle]);
+
   return (
     <Modal className="notification-div" isOpen toggle={toggle}>
       <ModalHeader toggle={toggle}>{label}</ModalHeader>

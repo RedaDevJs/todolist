@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+//Login.js
+
+import React, {useState} from "react";
 import NotificationModal from "../components/Modals/NotificationModal.js";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {
     fetchUserInfo,
     loginUserAsync,
 } from "../reducers/users/usersActions.js";
-import { loginUser, selectCurrentUser } from "../reducers/users/usersSlice.js";
+import {loginUser, selectCurrentUser} from "../reducers/users/usersSlice.js";
 import Input from "../components/Ui/Input.js";
 
 const LoginForm = () => {
@@ -28,17 +30,31 @@ const LoginForm = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
-
     const handleLogin = async () => {
         try {
             validateForm();
 
             setLoading(true);
 
-            const response = await dispatch(loginUserAsync({ email, password }));
+            // Dispatch the loginUserAsync action
+            const response = await dispatch(loginUserAsync({email, password}));
+
             console.log("Login response:", response);
 
-            handleSuccessfulLogin(response.payload);
+            // Check if the response contains a token
+            const token = localStorage.getItem("token");
+
+            if (token) {
+                // If a token is present, set login success and navigate to "/tasks"
+                setLoginSuccess(true);
+                setShowLoginForm(false);
+                toggle(); // Open the modal window
+                navigate("/tasks");
+            } else {
+                // Handle the case when there is no token
+                console.error("Token is not present in localStorage.");
+                // You may want to show an error message or handle it in some way
+            }
         } catch (error) {
             handleError(error);
         } finally {
@@ -61,27 +77,6 @@ const LoginForm = () => {
 
         if (hasError) {
             throw new Error("Validation error: Please fill in all required fields.");
-        }
-    };
-
-    const handleSuccessfulLogin = (payload) => {
-        if (payload && payload.token) {
-            const { user } = payload;
-
-            if (user) {
-                dispatch(selectCurrentUser({ username: user.username }));
-                dispatch(fetchUserInfo(user._id));
-                // Set isAuthenticated to true
-                dispatch(loginUser(user));
-                setLoginSuccess(true);
-                setShowLoginForm(false);
-                toggle(); // Open the modal window
-                navigate("/tasks");
-            } else {
-                handleError(new Error("Invalid user data received from the server."));
-            }
-        } else {
-            handleError(new Error("Login failed. Please try again."));
         }
     };
 
@@ -127,6 +122,7 @@ const LoginForm = () => {
 
         // Close the login form
         setShowLoginForm(false);
+        navigate("/home");
     };
 
     const handleForgotPassword = () => {
@@ -143,7 +139,6 @@ const LoginForm = () => {
                             <label className="m-2 text-lg">Login-Form</label>
                         </div>
                         <div className="p-8 border border-gray-300 rounded shadow-md">
-
                             <Input
                                 label={"Email:"}
                                 type="text"
@@ -153,15 +148,13 @@ const LoginForm = () => {
                                 error={emailError}
                             />
                             <Input
-                            label={"Password:"}
+                                label={"Password:"}
                                 type="password"
                                 value={password}
                                 onChange={handlePasswordChange}
                                 className="border p-2 rounded"
                                 error={passwordError}
                             />
-
-
 
                             <div className="flex justify-between">
                                 <button

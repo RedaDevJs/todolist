@@ -12,7 +12,8 @@ src
 |   |-- Header
 |   |   |-- Header.js
 |   |-- Layout
-|   |   |-- Layout.js                                                    |   |-- Modals
+|   |   |-- Layout.js
+|   |-- Modals
 |   |   |-- ManageTaskForm.js
 |   |   |-- NotificationModal.js 
 |   |-- UI

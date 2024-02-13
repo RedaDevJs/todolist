@@ -7,6 +7,18 @@ route.use(express.json());
 
 const taskController = new TaskController();
 
+// Get all tasks for a specific user
+route.get("/byUserId/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const result = await taskController.getAllByUserId(userId);
+
+    if (result) res.status(200).json(result);
+    else res.status(404).json(result);
+  } catch (error) {
+    console.error(res.status(500).json());
+  }
+});
 //addTask
 route.post("/", async (req, res) => {
   try {

@@ -1,3 +1,5 @@
+// task.controller.js
+
 import { TaskService } from "../services/task.service.js";
 
 export class TaskController {
@@ -10,5 +12,7 @@ export class TaskController {
   delete = (id) => this.taskService.delete(id);
   getOne = (id) => this.taskService.getOne(id);
   getAll = (page, limit, filter) =>
-      this.taskService.getAll(page, limit, filter);
+    this.taskService.getAll(page, limit, filter);
+  getAllByUserId = (page, limit, UserId) =>
+    this.taskService.getAllByUserId(page, limit, UserId);
 }
