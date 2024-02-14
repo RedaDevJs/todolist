@@ -35,7 +35,6 @@ export class TaskService {
           });
         }
       }
-
       return Task.find(flt, {}, { limit, skip: (page - 1) * limit });
     } catch (error) {
       console.error("Erreur lors de la récupération des tâches :", error);

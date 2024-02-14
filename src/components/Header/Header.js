@@ -18,7 +18,7 @@ export default function Header() {
   //const currentUser = useSelector()?.username;
   const dispatch = useDispatch();
 
-  console.log(isAuthenticated);
+  console.log("isAuthenticated :", isAuthenticated);
   const handleNavigationClick = (href) => {
     setCurrent(href);
   };

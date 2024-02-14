@@ -93,7 +93,9 @@ export const updateTaskAsync = createAsyncThunk(
                     message: "Token is null. Please authenticate first.",
                     status: 401,
                 });
+
             }
+            //const response = await axios.post(`${API_BASE_URL}/api/tasks/${updatedTask.id}`, updatedTask, getAxiosConfig());
 
             const response = await axios.put(
                 `${API_BASE_URL}/api/tasks/${updatedTask.id}`,
@@ -112,6 +114,39 @@ export const updateTaskAsync = createAsyncThunk(
         }
     },
 );
+
+// Async thunk function for deleting a task
+export const deleteTaskAsync = createAsyncThunk(
+    'tasks/deleteTask',
+    async (taskId, thunkAPI) => {
+        try {
+            const token = getToken();
+            if (!token) {
+                console.error('Token is null. Please authenticate first.');
+                return thunkAPI.rejectWithValue({
+                    message: 'Token is null. Please authenticate first.',
+                    status: 401,
+                });
+            }
+
+            // Replace this with the actual API call to delete the task
+            const response = await axios.delete(
+                `${API_BASE_URL}/api/tasks/${taskId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            return taskId; // Return the taskId to update the state in the reducer
+        } catch (error) {
+            console.error('Error deleting task:', error);
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    },
+);
+
 /*import axios from "axios";
 import { createAsyncThunk, current } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";

@@ -69,7 +69,7 @@ const TodoList = () => {
           />
         ))}
       </div>
-      <div className=" p-6 text-center">
+      <div className=" p-6 d-flex text-center ">
         <div>
           <button onClick={prev} disabled={currentPage === 1}>
             Previous
@@ -174,7 +174,6 @@ const TodoList = () => {
         console.error("Token is null. Please authenticate first.");
         throw new Error("Token is null. Please authenticate first.");
       }
-
       const response = await axios.get(
         `${API_BASE_URL}/api/tasks/byUserId/${currentUser._id}`,
         {

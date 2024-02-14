@@ -3,9 +3,10 @@
 import React, {useState, useEffect} from "react";
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {addTaskAsync} from "../../reducers/tasks/tasksActions.js";
+import {addTaskAsync, updateTaskAsync} from "../../reducers/tasks/tasksActions.js";
 import {fetchUserTasks} from "../../reducers/tasks/tasksActions.js";
 import NotificationModal from "./NotificationModal.js";
+import {formatToCustomDateTimeString} from "../Utilities/DateUtils.js";
 
 const ManageTaskForm = ({modal, toggle, taskObj}) => {
     const [titre, setTitre] = useState("");
@@ -21,7 +22,20 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
 
     const dispatch = useDispatch();
     const {isAuthenticated, currentUser} = useSelector((state) => state.reducer.users);
+    const [taskData, setTaskData] = useState(taskObj || {});
+    useEffect(() => {
+        setTaskData(taskObj || {});
+        setTitre(taskObj?.titre || "");
+        setPriorite(taskObj?.priorite || "");
+        setStatut(taskObj?.statut || "");
+        setDescription(taskObj?.description || "");
+        setCommentaires(taskObj?.commentaires || "");
+        setDeadline(taskObj?.deadline || "");
 
+    }, [modal, taskObj]);
+    /*  useEffect(() => {
+          setTaskData(taskObj || {});
+      }, [modal, taskObj]);*/
     useEffect(() => {
         if (isAuthenticated && currentUser && currentUser._id) {
             dispatch(fetchUserTasks(currentUser._id));
@@ -30,7 +44,72 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
         }
     }, [dispatch, isAuthenticated, currentUser]);
 
+
     const handleAddTask = async () => {
+        setLoading(true);
+
+        try {
+            if (!currentUser || !currentUser._id) {
+                throw new Error("currentUser is undefined or does not have 'id' property");
+            }
+
+            const token = localStorage.getItem("token");
+            if (!token) {
+                throw new Error("Token is null. Please authenticate first.");
+            }
+
+            const taskDataToUpdate = {
+                titre,
+                priorite,
+                statut,
+                description,
+                deadline,
+                commentaires,
+                userId: currentUser._id,
+            };
+
+            let updatedTask;
+
+            if (taskObj) {
+                // Update existing task
+                updatedTask = await dispatch(updateTaskAsync(taskDataToUpdate));
+            } else {
+                // Add new task
+                updatedTask = await dispatch(addTaskAsync(taskDataToUpdate));
+            }
+
+            console.log("Updated Task:", updatedTask.payload);
+
+            // Clear form fields on successful task addition/update
+            setTitre("");
+            setPriorite("");
+            setStatut("Todo");
+            setDescription("");
+            setDeadline("");
+            setCommentaires("");
+
+            // Close the modal
+            toggle();
+
+            // Set manageTaskSuccess to true to trigger success notification
+            setManageTaskSuccess(true);
+
+        } catch (error) {
+            console.error("Error adding/updating task:", error);
+            console.error("Detailed response:", error.response);
+
+            if (error?.response?.data?.message) {
+                setError(`Error adding/updating task: ${error.response.data.message}`);
+            } else {
+                setError("Error adding/updating task. Please try again.");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    /*const handleAddTask = async () => {
         setLoading(true);
 
         try {
@@ -47,7 +126,19 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
                 throw new Error("Token is null. Please authenticate first.");
             }
 
-            const taskData = {
+            /!* const taskData = {
+                 titre,
+                 priorite,
+                 statut,
+                 description,
+                 deadline,
+                 commentaires,
+                 userId: currentUser._id,
+             };
+
+             const addedTask = await dispatch(addTaskAsync(taskData));*!/
+
+            const taskDataToUpdate = {
                 titre,
                 priorite,
                 statut,
@@ -57,7 +148,9 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
                 userId: currentUser._id,
             };
 
-            const addedTask = await dispatch(addTaskAsync(taskData));
+            // Use taskDataToUpdate instead of the original taskData
+            const addedTask = await dispatch(addTaskAsync(taskDataToUpdate));
+
             // Vous pouvez accéder à la nouvelle tâche ajoutée via addedTask.payload
             console.log("Added Task:", addedTask.payload);
 // Clear form fields on successful task addition
@@ -87,7 +180,7 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
             setLoading(false);
         }
     };
-
+*/
 
     const getStatusColor = (status) => {
         switch (status) {
@@ -106,7 +199,13 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
         <>
             {showManageTaskForm && (
                 <Modal isOpen={modal} toggle={toggle}>
-                    <ModalHeader toggle={toggle} style={{backgroundColor: getStatusColor(statut), color: "white"}}>
+                    <ModalHeader
+                        toggle={toggle}
+                        style={{
+                            backgroundColor: getStatusColor(statut),
+                            color: "white",
+                        }}
+                    >
                         {taskObj ? "Update Task" : "Create Task"}
                     </ModalHeader>
                     <ModalBody>
@@ -132,13 +231,16 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
                         </div>
                         <div className="form-group">
                             <label>Priority</label>
-                            <textarea
-                                rows="3"
+                            <select
                                 className="form-control"
                                 value={priorite}
                                 onChange={(e) => setPriorite(e.target.value)}
                                 name="priority"
-                            ></textarea>
+                            >
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
                         </div>
                         <div className="form-group">
                             <label>Status</label>
@@ -168,7 +270,7 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
                             <input
                                 type="datetime-local"
                                 className="form-control"
-                                value={deadline}
+                                //value={deadline}
                                 onChange={(e) => setDeadline(e.target.value)}
                                 name="deadline"
                             />
@@ -197,12 +299,10 @@ const ManageTaskForm = ({modal, toggle, taskObj}) => {
                     isOpen={manageTaskSuccess}
                     toggle={() => setManageTaskSuccess(false)}
                     label="Manage Task"
-                    content="Task added successfully"
+                    content="Done successfully"
                     buttonText="Ok"
                 />
             )}
-
-
         </>
     );
 };
