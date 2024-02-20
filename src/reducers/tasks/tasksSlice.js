@@ -16,12 +16,9 @@ const tasksSlice = createSlice({
         },
         deleteTask: (state, action) => {
             const taskIdToDelete = action.payload;
-            const updatedTasks = state.tasks.filter((task) => task.id !== taskIdToDelete);
-            return {
-                ...state,
-                tasks: updatedTasks,
-            };
-        },
+            state.list = state.list.filter((task) => task._id !== taskIdToDelete);
+        }
+
     },
     extraReducers: (builder) => {
         builder
@@ -34,10 +31,7 @@ const tasksSlice = createSlice({
                 state.status = "succeeded";
                 state.list.push(action.payload);
             })
-            .addCase(addTaskAsync.rejected, (state, action) => {
-                state.status = "failed";
-                state.error = action.error.message;
-            })
+
             // fetchUserTasks
             .addCase(fetchUserTasks.pending, (state) => {
                 state.status = "loading";
@@ -50,24 +44,19 @@ const tasksSlice = createSlice({
                 state.status = "failed";
                 state.error = action.error.message;
             })
-            .addCase(deleteTaskAsync.fulfilled, (state, action) => {
-                const taskIdToDelete = action.payload;
-                state.tasks = state.tasks.filter((task) => task.id !== taskIdToDelete);
-            })
-            /*.addCase(updateTaskAsync.fulfilled, (state, action) => {
-                const updatedTask = action.payload;
-                state.list = state.list.map((task) => (task.id === updatedTask.id ? updatedTask : task)); // Corrected from 'tasks' to 'list'
-            })*/
 
-            /*.addCase(updateTaskAsync.fulfilled, (state, action) => {
-                const updatedTask = action.payload;
-                // Assuming tasks is an array of tasks
-                state.list = state.list.map((task) => (task.id === updatedTask.id ? updatedTask : task));
-            })*/
             .addCase(updateTaskAsync.fulfilled, (state, action) => {
                 const updatedTask = action.payload;
-                state.list = state.list.map((task) => (task.id === updatedTask.id ? updatedTask : task));
+                state.list = state.list.map((task) =>
+                    task.id === updatedTask.id ? updatedTask : task
+                );
+                console.log(updatedTask.id); // This line was added to log the updatedTask.id
+            })
+            .addCase(deleteTaskAsync.fulfilled, (state, action) => {
+                const taskIdToDelete = action.payload;
+                state.list = state.list.filter((task) => task._id !== taskIdToDelete);
             });
+
     },
 });
 

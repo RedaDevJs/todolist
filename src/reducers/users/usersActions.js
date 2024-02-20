@@ -4,6 +4,21 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { selectCurrentUser } from "./usersSlice.js";
 
+const API_BASE_URL = "http://localhost:6001";
+export const fetchUsersAsync = createAsyncThunk(
+  "users/fetchUsersAsync",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/users`);
+      console.log("Fetched users:", response.data); // Log the fetched data
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      return rejectWithValue(error?.response?.data || "API error");
+    }
+  },
+);
+
 export const addUserAsync = createAsyncThunk(
   "users/addUserAsync",
   async (userData, { rejectWithValue }) => {
@@ -71,3 +86,24 @@ export const fetchUserInfo = createAsyncThunk(
 export const logoutUser = () => {
   return { type: "users/logoutUser" };
 };
+
+export const updateUserBlockedStatusAsync = createAsyncThunk(
+  "users/updateUserBlockedStatusAsync",
+  async ({ userId, isBlocked }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await axios.put(`${API_BASE_URL}/api/users/${userId}`, {
+        isBlocked,
+      });
+      dispatch(fetchUsersAsync());
+      if (response?.data) {
+        return response.data;
+      } else {
+        console.error("Invalid response:", response);
+        return rejectWithValue("Invalid response");
+      }
+    } catch (error) {
+      console.error("API error:", error?.response?.data);
+      return rejectWithValue(error?.response?.data || "API error");
+    }
+  },
+);

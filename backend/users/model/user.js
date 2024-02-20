@@ -3,6 +3,7 @@
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
+import mongoosePaginate from "mongoose-paginate-v2"; // Import the plugin
 
 const userSchema = new Schema({
   id: mongoose.ObjectId,
@@ -19,13 +20,20 @@ const userSchema = new Schema({
     required: true,
     type: String,
   },
-  role:{
+  role: {
     required: true,
     type: String,
   },
- salt: {
+  salt: {
     required: true,
     type: String,
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false,
   },
 });
+
+// Apply the mongoosePaginate plugin to the userSchema
+userSchema.plugin(mongoosePaginate);
 export const User = mongoose.model("User", userSchema, "users");

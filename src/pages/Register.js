@@ -10,6 +10,7 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
+  const [isBlocked, setIsBlocked] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -53,7 +54,9 @@ const RegistrationForm = () => {
       setLoading(true);
       const role = "user";
       // Dispatch the addUserAsync action with the user data
-      await dispatch(addUserAsync({ username, email, password, role }));
+      await dispatch(
+        addUserAsync({ username, email, password, role, isBlocked }),
+      );
       // Handle registration success
       setRegistrationSuccess(true);
       toggleModal();

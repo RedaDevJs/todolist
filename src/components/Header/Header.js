@@ -14,13 +14,15 @@ export default function Header() {
   const { isAuthenticated, currentUser } = useSelector(
     (state) => state.reducer.users,
   );
-  // Use optional chaining to handle the case where state.users is undefined
-  //const currentUser = useSelector()?.username;
+
+  // Check if the user is an admin
+  const isAdmin = currentUser?.role === "admin";
+
   const dispatch = useDispatch();
 
-  console.log("isAuthenticated :", isAuthenticated);
   const handleNavigationClick = (href) => {
     setCurrent(href);
+    console.log("isAuthenticated :", isAuthenticated);
   };
 
   const navLinks = [
@@ -28,6 +30,7 @@ export default function Header() {
     { path: "/team", display: "Team" },
     { path: "/about", display: "About" },
     ...(isAuthenticated ? [{ path: "/tasks", display: "My Tasks" }] : []),
+    ...(isAdmin ? [{ path: "/list", display: "List Users" }] : []),
   ];
 
   const handleLogout = () => {

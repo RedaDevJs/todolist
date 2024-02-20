@@ -53,6 +53,7 @@ export class AuthService {
       if (code === 11000) return "duplicate email";
     }
   };
+
   getSinitizeUser = (user) => {
     const { _id, email, name, role, username } = user;
     return { _id, email, name, role, username };

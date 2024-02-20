@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addUserAsync, loginUserAsync } from "./usersActions.js";
+import {
+  addUserAsync,
+  loginUserAsync,
+  fetchUsersAsync,
+} from "./usersActions.js";
 
 const usersSlice = createSlice({
   name: "users",
@@ -7,6 +11,10 @@ const usersSlice = createSlice({
     list: [],
     currentUser: null,
     isAuthenticated: false,
+    user: {
+      // other properties
+      id: null,
+    },
   },
   reducers: {
     addUser: (state, action) => {
@@ -30,6 +38,14 @@ const usersSlice = createSlice({
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.currentUser = action.payload;
+      })
+      .addCase(fetchUsersAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.list = action.payload;
+      })
+      .addCase(fetchUsersAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });

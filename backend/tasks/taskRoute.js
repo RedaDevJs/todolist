@@ -1,6 +1,7 @@
 //taskRoute.js
 import express from "express";
 import { TaskController } from "./controllers/task.controller.js";
+import { Task } from "./model/task.js";
 
 export const route = express();
 route.use(express.json());
@@ -46,7 +47,7 @@ route.put("/:id", async (req, res) => {
   }
 });
 //delete
-route.delete("/:id ", async (req, res) => {
+/*route.delete("/:id ", async (req, res) => {
   try {
     const { id } = req.params;
     const result = await taskController.delete(id);
@@ -54,6 +55,23 @@ route.delete("/:id ", async (req, res) => {
     else res.status(404).json(result);
   } catch (error) {
     console.error(res.status(500).json());
+  }
+});*/
+route.delete("/:id", async (req, res) => {
+  const taskId = req.params.id;
+
+  try {
+    // Use findByIdAndDelete to find the task by ID and delete it
+    const deletedTask = await Task.findByIdAndDelete(taskId);
+
+    if (!deletedTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.json({ message: "Task deleted successfully", deletedTask });
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

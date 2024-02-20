@@ -1,46 +1,43 @@
-//user.service.js
-
-import {User} from "../model/user.js";
+import { User } from "../model/user.js";
+import { Task } from "../../tasks/model/task.js"; // Corrected import
 
 export class UserService {
+  add = (user) => User.create(user);
+  update = (id, item) => User.findByIdAndUpdate(id, item, { new: true });
+  getOne = (id) => User.findById(id);
+  delete = (id) => User.findByIdAndDelete(id);
 
-    add = (user) => User.create(user);
-    update = (id, item) => User.findByIdAndUpdate(id, item, {new: true});
-    getOne = (id) => User.findById(id);
-    delete = (id) => User.findByIdAndDelete(id);
-    getAll = (page = 1, limit = 10, filter = {}) => {
-        const options = {
-            page: parseInt(page, 10),
-            limit: parseInt(limit, 10),
-        };
-        return User.paginate(filter, options);
-    };
-
-    findByParams(params, value) {
-        return User.findOne({[params]: value});
-    }
-}
-
-/*async add(username, email, password, role) {
+  getAll = async (page = 1, limit = 100, filter) => {
     try {
-      // Hash the password before saving it to the database
-      const hashedPassword = await bcrypt.hash(password, 10);
+      page = Math.max(1, page);
+      limit = Math.max(1, limit);
 
-      // Create a new User instance
-      const newUser = new User({
-        username,
-        email,
-        password: hashedPassword,
-        role,
-      });
+      const query = {};
 
-      // Save the user to the database
-      const savedUser = await newUser.save();
+      if (filter) {
+        if (typeof filter === "string") {
+          const [key, value] = filter.split("__");
+          query[key] = value;
+        } else if (Array.isArray(filter)) {
+          filter.forEach((item) => {
+            const [key, value] = item.split("__");
+            query[key] = value;
+          });
+        }
+      }
 
-      console.log("User added successfully:", savedUser);
-      return savedUser;
+      const users = await User.find(query)
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+      return users;
     } catch (error) {
-      console.error("Error adding user:", error.message);
-      throw error;
+      console.error("Erreur lors de la récupération des utilisateurs :", error);
+      throw new Error("Erreur lors de la récupération des utilisateurs");
     }
-  }*/
+  };
+
+  findByParams(params, value) {
+    return User.findOne({ [params]: value });
+  }
+}

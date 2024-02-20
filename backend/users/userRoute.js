@@ -1,6 +1,8 @@
-import express from 'express';
-import { UserController } from './controllers/user.controller.js';
-import bcrypt from 'bcrypt';
+import express from "express";
+import { UserController } from "./controllers/user.controller.js";
+import bcrypt from "bcrypt";
+import { isAdmin } from "./authMiddleware.js";
+
 export const route = express();
 route.use(express.json());
 
@@ -10,8 +12,17 @@ const sanitize = (item) => {
   const { password, salt, ...user } = item;
   return user;
 };
-
-route.get('/', async (req, res) => {
+// Route for fetching all users
+/*route.get("/", async (req, res) => {
+  try {
+    const { page, limit, filter } = req.query;
+    const result = await userController.getAll(page, limit, filter);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});*/
+route.get("/", async (req, res) => {
   try {
     const { page, limit, filter } = req.query;
     const result = await userController.getAll(page, limit, filter);
@@ -20,8 +31,7 @@ route.get('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-route.get('/:id', async (req, res) => {
+route.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const result = await userController.getOne(id);
@@ -31,7 +41,7 @@ route.get('/:id', async (req, res) => {
   }
 });
 
-route.post('/register', async (req, res) => {
+route.post("/register", async (req, res) => {
   try {
     const { body } = req;
 
@@ -43,12 +53,16 @@ route.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(body.password, salt);
 
     // Ajouter l'utilisateur avec le mot de passe haché et le sel
-    const result = await userController.Add({ ...body, password: hashedPassword, salt });
+    const result = await userController.Add({
+      ...body,
+      password: hashedPassword,
+      salt,
+    });
 
     if (result) {
       res.status(201).json(sanitize(result));
     } else {
-      res.status(404).json({ msg: 'erreur' });
+      res.status(404).json({ msg: "erreur" });
     }
   } catch (err) {
     console.error(err);
@@ -56,7 +70,7 @@ route.post('/register', async (req, res) => {
   }
 });
 
-route.put('/:id', async (req, res) => {
+route.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
@@ -71,7 +85,7 @@ route.put('/:id', async (req, res) => {
   }
 });
 
-route.delete('/:id', async (req, res) => {
+route.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const result = await userController.delete(id);
