@@ -12,11 +12,11 @@ const taskSchema = new Schema({
   Statut: String,
   Description: String,
   deadline: Date,
-  Commentaires: [String],
-  //   userId: {
-  //     required: true,
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "User",
-  //   },
+  Commentaires: String,
+  userId: {
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
-export const Task = mongoose.model("Task", taskSchema,"Tasks");
+export const Task = mongoose.model("Task", taskSchema, "Tasks");
